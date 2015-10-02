@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+import sys
+#sys.path.append('..')
+
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^onlinebandit/', include('onlinebandit.urls')),
 ]
