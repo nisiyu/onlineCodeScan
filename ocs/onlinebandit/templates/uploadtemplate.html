@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form action="{% url 'uploadview' %}" method="post" enctype="multipart/form-data">
+    {{ form }}
+    <input type="submit" value="Submit" />
+</form>
+</body>
+</html>
