@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from .forms import UploadFileForm
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.template.context_processors import csrf
 
 # Create your views here.
 def index(request):
@@ -33,9 +34,10 @@ class DetailView(generic.DetailView):
     model = plan
     template_name = 'usertemplate.html'
 
-@csrf_exempt
-def uploadview(request):
 
+def uploadview(request):
+    c = {}
+    c.update(csrf(request))
     if request.method == 'POST':
         print request.FILES
         form = UploadFileForm(request.POST, request.FILES)
@@ -45,7 +47,8 @@ def uploadview(request):
             pass
     else:
         form = UploadFileForm()
-    return render_to_response('uploadtemplate.html', {'form': form})
+    c.update({'form':form})
+    return render_to_response('uploadtemplate.html', c)
 
 def handle_uploaded_file(f):
     with open('dest.zip', 'wb+') as destination:
